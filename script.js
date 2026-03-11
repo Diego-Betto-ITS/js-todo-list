@@ -84,8 +84,20 @@ function disegnaElenco() {
                 disegnaElenco();
             });
 
+            // creo due bottoni
+            const elementoUp = document.createElement('button');
+            const elementoDown = document.createElement('button');
+
+            // ci metto dentro delle icone
+            elementoUp.innerText = '👆';
+            elementoDown.innerText = '👇';
+
             // inserisco all'inizio del "li" il mio input checkbox
             elementoLi.prepend(elementoCheckbox);
+
+            // inserisco i bottoni dentro il li, in fondo
+            elementoLi.append(elementoUp);
+            elementoLi.append(elementoDown);
 
             // inserisco all'interno della lista il mio "li" completo
             listaTodo.append(elementoLi);
