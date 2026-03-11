@@ -65,7 +65,8 @@ function disegnaElenco() {
                 elementoLi.classList.add('todo-item--checked');
             }
 
-            elementoLi.classList.add(`todo-item--priority-${item.priorita}`)
+            elementoLi.classList.add(`todo-item--priority-${item.priorita}`);
+            // elementoLi.classList.add('todo-item--priority-' + item.priorita);
 
             // creo elemento <input type="checkbox" /> e setto lo stato
             const elementoCheckbox = document.createElement('input');
