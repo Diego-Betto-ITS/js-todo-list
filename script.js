@@ -1,24 +1,35 @@
+const templateTodoItem = {
+    etichetta: '',
+    stato: false,
+    order: 1,
+    priorita: 2,
+}
+
 // creare un array di oggetti che rappresentano le todo
 const todoList = [
     {
         etichetta: 'prima todo',
         stato: false,
         order: 1,
+        priorita: 2
     },
     {
         etichetta: 'seconda todo',
         stato: true,
         order: 10,
+        priorita: 2,
     },
     {
         etichetta: 'terza todo',
         stato: false,
         order: 1,
+        priorita: 3,
     },
     {
         etichetta: 'quarta todo',
         stato: false,
         order: 1,
+        priorita: 1,
     }
 ];
 
@@ -81,10 +92,15 @@ disegnaElenco();
 // funzione che aggiunge un elmento alla todolist
 function addItem () {
     // creare un nuovo oggetto todo con i dati dell'input
-    const newTodo = {
+    /*const newTodo = {
         etichetta: inputTodo.value,
         stato: false,
         order: 1,
+    };*/
+
+    const newTodo = {
+        ...templateTodoItem, 
+        etichetta: inputTodo.value,
     };
 
     // aggiungere il nuovo oggetto all'array di todo
