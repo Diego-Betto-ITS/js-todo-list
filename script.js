@@ -7,6 +7,16 @@ const todoList = [
     },
     {
         etichetta: 'seconda todo',
+        stato: true,
+        order: 10,
+    },
+    {
+        etichetta: 'terza todo',
+        stato: false,
+        order: 1,
+    },
+    {
+        etichetta: 'quarta todo',
         stato: false,
         order: 1,
     }
@@ -22,6 +32,11 @@ function disegnaElenco() {
     // svuotare la lista prima di ridisegnarla
     listaTodo.innerText = '';
 
+    // ordina l'elenco in base all'attributo order
+    todoList.sort(function(a, b) {
+        return a.order - b.order;
+    })
+
     // ciclare l'array di oggetti e creare un elemento li per ogni todo
     todoList.forEach(
         function(item){
@@ -29,6 +44,32 @@ function disegnaElenco() {
             const elementoLi = document.createElement('li');
             elementoLi.innerText = item.etichetta;
             elementoLi.classList.add('todo-item');
+
+            // se l'elemento ha stato true aggiungi la classe
+            if (item.stato) {
+                elementoLi.classList.add('todo-item--checked');
+            }
+
+            // creo elemento <input type="checkbox" /> e setto lo stato
+            const elementoCheckbox = document.createElement('input');
+            elementoCheckbox.type = 'checkbox';
+            elementoCheckbox.checked = item.stato;
+
+            // se clicco sulla checkbox...
+            elementoCheckbox.addEventListener('change', function(event) {
+                // cambio lo stato del item dentro la lista
+                item.stato = event.target.checked;
+                // cambio l'order del item dentro la lista
+                item.order = event.target.checked ? 10 : 1;
+
+                // ridisegno/aggiorno la visualizzazione
+                disegnaElenco();
+            });
+
+            // inserisco all'inizio del "li" il mio input checkbox
+            elementoLi.prepend(elementoCheckbox);
+
+            // inserisco all'interno della lista il mio "li" completo
             listaTodo.append(elementoLi);
         }
     );
@@ -37,6 +78,7 @@ function disegnaElenco() {
 // disegnare l'elenco delle todo all'avvio della pagina
 disegnaElenco();
 
+// funzione che aggiunge un elmento alla todolist
 function addItem () {
     // creare un nuovo oggetto todo con i dati dell'input
     const newTodo = {
