@@ -45,7 +45,11 @@ function disegnaElenco() {
 
     // ordina l'elenco in base all'attributo order
     todoList.sort(function(a, b) {
-        return a.order - b.order;
+        // faccio in modo che order abbia un peso maggiore rispetto alla priorità
+        // order alti mandano in fondo l'item nella lista
+        // all'interno di elementi con order alti avviene un ordinamento per priorità
+        // idem per elementi con order basso vengono poi ordinati per priorità
+        return (a.priorita + a.order * 100) - (b.priorita + b.order * 100);
     })
 
     // ciclare l'array di oggetti e creare un elemento li per ogni todo
@@ -61,7 +65,7 @@ function disegnaElenco() {
                 elementoLi.classList.add('todo-item--checked');
             }
 
-            elementoLi.classList.add('todo-item--priority-1')
+            elementoLi.classList.add(`todo-item--priority-${item.priorita}`)
 
             // creo elemento <input type="checkbox" /> e setto lo stato
             const elementoCheckbox = document.createElement('input');

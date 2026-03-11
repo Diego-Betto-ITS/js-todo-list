@@ -38,6 +38,25 @@
             /* se vogliamo ordinare le cose con css
             order: 1;
             */
+            color: white;
+            padding: 0.25rem 0.5rem;
+            transition: box-shadow 0.3s ease;
+            border-radius: 4px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+        }
+
+        .todo-item input[type="checkbox"] {
+            margin-right: 0.5rem;
+        }
+
+        .todo-item + .todo-item {
+            margin-top: 0.5rem;
+        }
+        
+        .todo-item:hover {
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
         }
 
         .todo-item--checked {
@@ -49,15 +68,15 @@
         }
 
         .todo-item--priority-1 {
-
+            background-color: red;
         }
 
         .todo-item--priority-2 {
-
+            background-color: orange;
         }
 
         .todo-item--priority-3 {
-            
+            background-color: green;
         }
     </style>
 
