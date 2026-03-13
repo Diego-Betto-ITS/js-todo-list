@@ -10,25 +10,25 @@ const todoList = [
     {
         etichetta: 'prima todo',
         stato: false,
-        order: 1,
+        order: 0,
         priorita: 2
     },
     {
         etichetta: 'seconda todo',
         stato: true,
-        order: 10,
+        order: 1,
         priorita: 2,
     },
     {
         etichetta: 'terza todo',
         stato: false,
-        order: 1,
+        order: 2,
         priorita: 3,
     },
     {
         etichetta: 'quarta todo',
         stato: false,
-        order: 1,
+        order: 3,
         priorita: 1,
     }
 ];
@@ -49,16 +49,20 @@ function disegnaElenco() {
         // order alti mandano in fondo l'item nella lista
         // all'interno di elementi con order alti avviene un ordinamento per priorità
         // idem per elementi con order basso vengono poi ordinati per priorità
-        return (a.priorita + a.order * 100) - (b.priorita + b.order * 100);
+        // return (a.priorita + a.order * 100) - (b.priorita + b.order * 100);
+        return a.order - b.order ;
     })
 
     // ciclare l'array di oggetti e creare un elemento li per ogni todo
     todoList.forEach(
-        function(item){
+        function(item, index){
             // creare un elemento li, impostare il testo e aggiungerlo alla lista
             const elementoLi = document.createElement('li');
             elementoLi.innerText = item.etichetta;
             elementoLi.classList.add('todo-item');
+            elementoLi.dataset.todoId = index;
+            elementoLi.dataset.todoUuid = crypto.randomUUID();
+            elementoLi.dataset.todoOrder = item.order;
 
             // se l'elemento ha stato true aggiungi la classe
             if (item.stato) {
@@ -89,8 +93,11 @@ function disegnaElenco() {
             const elementoDown = document.createElement('button');
 
             // ci metto dentro delle icone
-            elementoUp.innerText = '👆';
-            elementoDown.innerText = '👇';
+            elementoUp.innerText = '˄';
+            elementoDown.innerText = '˅';
+
+            elementoUp.addEventListener('click', moveTodoUp);
+            elementoDown.addEventListener('click', moveTodoDown);
 
             // inserisco all'inizio del "li" il mio input checkbox
             elementoLi.prepend(elementoCheckbox);
@@ -103,6 +110,48 @@ function disegnaElenco() {
             listaTodo.append(elementoLi);
         }
     );
+}
+
+function moveTodoUp (event) {
+    // event.target è il bottone
+    // event.target.parentElement è il padre, quindi il "li"
+    // event.target.parentElement.dataset è il dataset del "li"
+    console.log(event.target.parentElement.dataset)
+    console.log('prev element', event.target.parentElement.previousElementSibling)
+
+    const currentElement = event.target.parentElement;
+    const prevElement = currentElement.previousElementSibling;
+
+    if (!prevElement) {
+        return;
+    }
+
+    const currentElementOrder = parseInt(currentElement.dataset.todoOrder);
+    const prevElementOrder = parseInt(prevElement.dataset.todoOrder);
+
+    const todoItem = todoList.find(
+        function(el){
+            return el.order === currentElementOrder;
+        }
+    );
+
+    const prevTodoItem = todoList.find(
+        function(el){
+            return el.order === prevElementOrder;
+        }
+    );
+
+    const oldTodoItemOrder = todoItem.order;
+
+    todoItem.order = prevTodoItem.order;
+    prevTodoItem.order = oldTodoItemOrder;
+
+    disegnaElenco();
+}
+
+function moveTodoDown (event) {
+    console.log(event.target.parentElement.dataset)
+    console.log('next element', event.target.parentElement.nextElementSibling)
 }
 
 // disegnare l'elenco delle todo all'avvio della pagina
