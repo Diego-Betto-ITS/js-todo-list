@@ -71,13 +71,16 @@ function disegnaElenco() {
             // creo due bottoni
             const elementoUp = document.createElement('button');
             const elementoDown = document.createElement('button');
+            const elementoDel = document.createElement('button');
 
             // ci metto dentro delle icone
             elementoUp.innerText = '˄';
             elementoDown.innerText = '˅';
+            elementoDel.innerText = 'D';
 
             elementoUp.addEventListener('click', moveTodoUp);
             elementoDown.addEventListener('click', moveTodoDown);
+            elementoDel.addEventListener('click', deleteItem);
 
             // inserisco all'inizio del "li" il mio input checkbox
             elementoLi.prepend(elementoCheckbox);
@@ -85,6 +88,7 @@ function disegnaElenco() {
             // inserisco i bottoni dentro il li, in fondo
             elementoLi.append(elementoUp);
             elementoLi.append(elementoDown);
+            elementoLi.append(elementoDel);
 
             // inserisco all'interno della lista il mio "li" completo
             listaTodo.append(elementoLi);
@@ -163,6 +167,32 @@ function moveTodoDown (event) {
     disegnaElenco();
 }
 
+const deleteItem = (event) => {
+    // cerco lo UUID del elemento LI, è nel suo data-todouuid
+    const idDaEliminare = event.target.parentElement.dataset.todoUuid;
+    // e la sua etichetta
+    const etichettaDaEliminare = event.target.parentElement.innerText;
+
+    // se per qualche motivo l'elemento non esiste, stop il mio compito è finito
+    if (!idDaEliminare) {
+        return;
+    }
+
+    // se l'utente non conferma, stop, esco.
+    if (!confirm(`Vuoi davvero cancellare ${etichettaDaEliminare}?`)) {
+        return;
+    }
+
+    // se conferma cerco la sua posizione nell'elenco todoList
+    const posizioneElementoDaEliminare = todoList.findIndex((item) => item.id === idDaEliminare);
+
+    // dall'elenco elimino un solo elemento alla posizione posizioneElementoDaEliminare
+    todoList.splice(posizioneElementoDaEliminare, 1);
+
+    // i dati sono aggiornati, ridisegna e salva in localStorage i dati
+    disegnaElenco();
+}
+
 // disegnare l'elenco delle todo all'avvio della pagina
 disegnaElenco();
 
@@ -174,6 +204,11 @@ function addItem () {
         stato: false,
         order: 1,
     };*/
+
+    if (inputTodo.value.trim() === '') {
+        inputTodo.value = '';
+        return;
+    }
 
     const newTodo = {
         ...templateTodoItem, 
@@ -196,3 +231,9 @@ function addItem () {
 
 // aggiungere un event listener al pulsante per aggiungere una nuova todo
 btnAdd.addEventListener("click", addItem);
+
+inputTodo.addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        addItem();
+    }
+});
