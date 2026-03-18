@@ -1,3 +1,5 @@
+const LS_TODOLIST_KEY = 'todolist';
+
 const templateTodoItem = {
     etichetta: '',
     stato: false,
@@ -6,32 +8,8 @@ const templateTodoItem = {
 }
 
 // creare un array di oggetti che rappresentano le todo
-const todoList = [
-    {
-        etichetta: 'prima todo',
-        stato: false,
-        order: 0,
-        priorita: 2
-    },
-    {
-        etichetta: 'seconda todo',
-        stato: true,
-        order: 1,
-        priorita: 2,
-    },
-    {
-        etichetta: 'terza todo',
-        stato: false,
-        order: 2,
-        priorita: 3,
-    },
-    {
-        etichetta: 'quarta todo',
-        stato: false,
-        order: 3,
-        priorita: 1,
-    }
-];
+const savedTodoList = localStorage.getItem(LS_TODOLIST_KEY);
+const todoList = savedTodoList ? JSON.parse(savedTodoList) : [];
 
 // recuperare gli elementi del DOM
 const listaTodo = document.getElementById('lista-todo');
@@ -52,6 +30,8 @@ function disegnaElenco() {
         // return (a.priorita + a.order * 100) - (b.priorita + b.order * 100);
         return a.order - b.order ;
     })
+
+    localStorage.setItem(LS_TODOLIST_KEY, JSON.stringify(todoList));
 
     // ciclare l'array di oggetti e creare un elemento li per ogni todo
     todoList.forEach(
@@ -152,6 +132,35 @@ function moveTodoUp (event) {
 function moveTodoDown (event) {
     console.log(event.target.parentElement.dataset)
     console.log('next element', event.target.parentElement.nextElementSibling)
+
+    const currentElement = event.target.parentElement;
+    const nextElement = currentElement.nextElementSibling;
+
+    if (!nextElement) {
+        return;
+    }
+
+    const currentElementOrder = parseInt(currentElement.dataset.todoOrder);
+    const nextElementOrder = parseInt(nextElement.dataset.todoOrder);
+
+    const todoItem = todoList.find(
+        function(el){
+            return el.order === currentElementOrder;
+        }
+    );
+
+    const nextTodoItem = todoList.find(
+        function(el){
+            return el.order === nextElementOrder;
+        }
+    );
+
+    const oldTodoItemOrder = todoItem.order;
+
+    todoItem.order = nextTodoItem.order;
+    nextTodoItem.order = oldTodoItemOrder;
+
+    disegnaElenco();
 }
 
 // disegnare l'elenco delle todo all'avvio della pagina
