@@ -41,7 +41,7 @@ function disegnaElenco() {
             elementoLi.innerText = item.etichetta;
             elementoLi.classList.add('todo-item');
             elementoLi.dataset.todoId = index;
-            elementoLi.dataset.todoUuid = crypto.randomUUID();
+            elementoLi.dataset.todoUuid = item.id;
             elementoLi.dataset.todoOrder = item.order;
 
             // se l'elemento ha stato true aggiungi la classe
@@ -178,6 +178,7 @@ function addItem () {
     const newTodo = {
         ...templateTodoItem, 
         etichetta: inputTodo.value,
+        id: crypto.randomUUID(),
     };
 
     // aggiungere il nuovo oggetto all'array di todo
@@ -185,6 +186,12 @@ function addItem () {
 
     // ridisegna l'elenco delle todo
     disegnaElenco();
+
+    // svuoto il campo di input
+    inputTodo.value = '';
+
+    // torno a dare focus al campo di input
+    inputTodo.focus();
 }
 
 // aggiungere un event listener al pulsante per aggiungere una nuova todo
