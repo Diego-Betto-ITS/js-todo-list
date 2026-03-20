@@ -1,1 +1,27 @@
 GET http://localhost:3000/todo
+
+###
+
+GET http://localhost:3000/todo/2
+
+###
+DELETE http://localhost:3000/todo/2
+
+###
+POST http://localhost:3000/todo
+Content-Type: application/json
+
+{
+    "etichetta": "prova creazione",
+    "order": 2,
+    "stato": false,
+    "priorita": 2
+}
+
+###
+PATCH http://localhost:3000/todo/75a8
+Content-Type: application/json
+
+{
+    "stato": true
+}

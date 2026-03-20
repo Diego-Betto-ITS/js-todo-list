@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 class="titolo titolo__pagina">Todo List</h1>
+
+    <div class="header">
+        <input id="new" name="new" type="text" placeholder="nuova todo..." />
+        <button id="add">+</button>
+    </div>
+
+    <div class="lista">
+        <ul id="lista-todo">
+            <!-- <li><input type="checkbox" /> task <button class="down">↓</button> <button class="up">↑</button></li>
+        -->
+        </ul>
+    </div>
+
+    <style>
+        .lista {
+            margin-top: 20px;
+        }
+
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            /* se vogliamo ordinare le cose con css
+            display: flex;
+            flex-direction: column;*/
+        }
+
+        .todo-item {
+            /* se vogliamo ordinare le cose con css
+            order: 1;
+            */
+            color: white;
+            padding: 0.25rem 0.5rem;
+            transition: box-shadow 0.3s ease;
+            border-radius: 4px;
+            box-shadow: 0 3px 4px rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+        }
+
+        .todo-item button {
+            border: none;
+            background: none transparent;
+        }
+
+        .todo-item input[type="checkbox"] {
+            margin-right: 0.5rem;
+        }
+
+        .todo-item + .todo-item {
+            margin-top: 0.5rem;
+        }
+        
+        .todo-item:hover {
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .todo-item--checked {
+            text-decoration: line-through;
+            opacity: 0.6;
+            /* se vogliamo ordinare le cose con css
+            order: 10;
+            */
+        }
+
+        .todo-item--priority-1 {
+            background-color: red;
+        }
+
+        .todo-item--priority-2 {
+            background-color: orange;
+        }
+
+        .todo-item--priority-3 {
+            background-color: green;
+        }
+
+        li button {
+            color: white;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        li button:nth-of-type(1) {
+            margin-left: auto;
+        }
+    </style>
+
+    <script src="script-rest.js"></script>
+</body>
+</html>

@@ -1,32 +1,19 @@
 {
-    "todo": [
-        {
-            "id": 1,
-            "etichetta": "Buy groceries",
-            "order": 1,
-            "stato": false,
-            "priorita": 2
-        },
-        {
-            "id": 2,
-            "etichetta": "Walk the dog",
-            "order": 1,
-            "stato": false,
-            "priorita": 2
-        },
-        {
-            "id": 3,
-            "etichetta": "Read a book",
-            "order": 1,
-            "stato": false,
-            "priorita": 2
-        },
-        {
-            "id": 4,
-            "etichetta": "Read a book 4",
-            "order": 1,
-            "stato": false,
-            "priorita": 2
-        }
-    ]
+  "todo": [
+    {
+      "id": "0e346148-fdc8-4c8b-9460-a74ce574659b",
+      "etichetta": "asd",
+      "stato": false,
+      "order": 1,
+      "priorita": 2
+    },
+    {
+      "id": "997488a0-9475-4496-b8fa-8142bb7c9977",
+      "etichetta": "ddd",
+      "stato": false,
+      "order": 1,
+      "priorita": 2
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
