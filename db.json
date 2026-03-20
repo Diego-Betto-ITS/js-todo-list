@@ -1,0 +1,32 @@
+{
+    "todo": [
+        {
+            "id": 1,
+            "etichetta": "Buy groceries",
+            "order": 1,
+            "stato": false,
+            "priorita": 2
+        },
+        {
+            "id": 2,
+            "etichetta": "Walk the dog",
+            "order": 1,
+            "stato": false,
+            "priorita": 2
+        },
+        {
+            "id": 3,
+            "etichetta": "Read a book",
+            "order": 1,
+            "stato": false,
+            "priorita": 2
+        },
+        {
+            "id": 4,
+            "etichetta": "Read a book 4",
+            "order": 1,
+            "stato": false,
+            "priorita": 2
+        }
+    ]
+}
